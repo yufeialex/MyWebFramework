@@ -45,7 +45,7 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-            <!-- Tomcat -->
+            <!-- Tomcat 应为不是springboot项目，没有内嵌tomcat，需要自己指定一个插件，或者用本地电脑上的-->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>

@@ -32,6 +32,7 @@ public final class ClassUtil {
 
     /**
      * 加载类
+     * 这里的初始化是指是否初始化类，执行类的静态代码块
      */
     public static Class<?> loadClass(String className, boolean isInitialized) {
         Class<?> cls;
