@@ -33,20 +33,22 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
+        // 初始化相关Helper类
         HelperLoader.init();
-
+        // 获取ServletContext对象（用于注册Servlet）
         ServletContext servletContext = servletConfig.getServletContext();
-
+        // 注册Servlet
         registerServlet(servletContext);
 
         UploadHelper.init(servletContext);
     }
 
     private void registerServlet(ServletContext servletContext) {
+        // 注册Servlet关于JSP内容的处理
         ServletRegistration jspServlet = servletContext.getServletRegistration("jsp");
         jspServlet.addMapping("/index.jsp");
         jspServlet.addMapping(ConfigHelper.getAppJspPath() + "*");
-
+//      // 注册Servlet关于静态资源的处理
         ServletRegistration defaultServlet = servletContext.getServletRegistration("default");
         defaultServlet.addMapping("/favicon.ico");
         defaultServlet.addMapping(ConfigHelper.getAppAssetPath() + "*");

@@ -19,7 +19,17 @@ import java.util.Set;
  */
 public final class ControllerHelper {
 
+    /**
+     * 用于存放请求与处理器的映射关系（简称Action Map）
+     */
     private static final Map<Request, Handler> ACTION_MAP = new HashMap<Request, Handler>();
+
+    /**
+     * 构建Action Map
+     * 通过classHelper得到所有带Controller注解的类
+     * 循环这些类拿到所有带Action注解的方法
+     * 把注解中的url路径和Handler放到map做映射（Handler就是存储了Controller类和url对应的方法）
+     */
 
     static {
         Set<Class<?>> controllerClassSet = ClassHelper.getControllerClassSet();
@@ -31,6 +41,7 @@ public final class ControllerHelper {
                         if (method.isAnnotationPresent(Action.class)) {
                             Action action = method.getAnnotation(Action.class);
                             String mapping = action.value();
+                            // 验证URL映射规则
                             if (mapping.matches("\\w+:/\\w*")) {
                                 String[] array = mapping.split(":");
                                 if (ArrayUtil.isNotEmpty(array) && array.length == 2) {

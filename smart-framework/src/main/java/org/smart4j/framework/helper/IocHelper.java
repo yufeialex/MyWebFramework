@@ -17,6 +17,7 @@ import java.util.Map;
 public final class IocHelper {
 
     static {
+        // 获取所有Bean类与Bean实例的映射关系（简称Bean Map）
         Map<Class<?>, Object> beanMap = BeanHelper.getBeanMap();
         if (CollectionUtil.isNotEmpty(beanMap)) {
             for (Map.Entry<Class<?>, Object> beanEntry : beanMap.entrySet()) {
@@ -27,6 +28,7 @@ public final class IocHelper {
                     for (Field beanField : beanFields) {
                         if (beanField.isAnnotationPresent(Inject.class)) {
                             Class<?> beanFieldClass = beanField.getType();
+                            // 如果某个Bean Field被Inject注释了，那么实例化它并加入原来的bean
                             Object beanFieldInstance = beanMap.get(beanFieldClass);
                             if (beanFieldInstance != null) {
                                 ReflectionUtil.setField(beanInstance, beanField, beanFieldInstance);

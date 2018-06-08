@@ -64,6 +64,8 @@ public final class ClassUtil {
                 if (url != null) {
                     String protocol = url.getProtocol();
                     if (protocol.equals("file")) {
+                        // getPath获取文件路径时，里面的路径空格会被“%20”代替，
+                        // 这时候如果你用这个获取到的包含“%20”的路径来new一个File时，会出现找不到路径的错误。
                         String packagePath = url.getPath().replaceAll("%20", " ");
                         addClass(classSet, packagePath, packageName);
                     } else if (protocol.equals("jar")) {
