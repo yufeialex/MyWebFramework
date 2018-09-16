@@ -19,6 +19,7 @@ public class CustomerServlet extends HttpServlet {
 
     private CustomerService customerService;
 
+    // 这里初始化，避免本类里重复创建。但是全局还不是唯一。
     @Override
     public void init() throws ServletException {
         customerService = new CustomerService();
